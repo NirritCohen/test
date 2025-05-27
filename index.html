@@ -12,12 +12,22 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
       overflow: hidden;
     }
     #flipbook {
       width: 1300px;
       height: 900px;
-      margin: 60px auto 0 auto;
     }
     .page {
       width: 650px;
@@ -32,13 +42,11 @@
       object-fit: contain;
     }
     .controls {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
+      margin-top: 10px;
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     .controls button {
       padding: 10px 20px;
@@ -48,7 +56,7 @@
     #page-number {
       color: #fff;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 1.1rem;
     }
     .contrast-toggle {
@@ -77,33 +85,35 @@
 
 <button class="contrast-toggle" onclick="toggleContrast()">🌓 מצב ניגודיות</button>
 
-<div id="flipbook">
-  <div class="page"><img src="images/page_1.jpg" alt="Page 1"></div>
-  <div class="page"><img src="images/page_2.jpg" alt="Page 2"></div>
-  <div class="page"><img src="images/page_3.jpg" alt="Page 3"></div>
-  <div class="page"><img src="images/page_4.jpg" alt="Page 4"></div>
-  <div class="page"><img src="images/page_5.jpg" alt="Page 5"></div>
-  <div class="page"><img src="images/page_6.jpg" alt="Page 6"></div>
-  <div class="page"><img src="images/page_7.jpg" alt="Page 7"></div>
-  <div class="page"><img src="images/page_8.jpg" alt="Page 8"></div>
-  <div class="page"><img src="images/page_9.jpg" alt="Page 9"></div>
-  <div class="page"><img src="images/page_10.jpg" alt="Page 10"></div>
-  <div class="page"><img src="images/page_11.jpg" alt="Page 11"></div>
-  <div class="page"><img src="images/page_12.jpg" alt="Page 12"></div>
-  <div class="page"><img src="images/page_13.jpg" alt="Page 13"></div>
-  <div class="page"><img src="images/page_14.jpg" alt="Page 14"></div>
-  <div class="page"><img src="images/page_15.jpg" alt="Page 15"></div>
+<div class="container">
+  <div id="flipbook">
+    <div class="page"><img src="images/page_1.jpg" alt="Page 1"></div>
+    <div class="page"><img src="images/page_2.jpg" alt="Page 2"></div>
+    <div class="page"><img src="images/page_3.jpg" alt="Page 3"></div>
+    <div class="page"><img src="images/page_4.jpg" alt="Page 4"></div>
+    <div class="page"><img src="images/page_5.jpg" alt="Page 5"></div>
+    <div class="page"><img src="images/page_6.jpg" alt="Page 6"></div>
+    <div class="page"><img src="images/page_7.jpg" alt="Page 7"></div>
+    <div class="page"><img src="images/page_8.jpg" alt="Page 8"></div>
+    <div class="page"><img src="images/page_9.jpg" alt="Page 9"></div>
+    <div class="page"><img src="images/page_10.jpg" alt="Page 10"></div>
+    <div class="page"><img src="images/page_11.jpg" alt="Page 11"></div>
+    <div class="page"><img src="images/page_12.jpg" alt="Page 12"></div>
+    <div class="page"><img src="images/page_13.jpg" alt="Page 13"></div>
+    <div class="page"><img src="images/page_14.jpg" alt="Page 14"></div>
+    <div class="page"><img src="images/page_15.jpg" alt="Page 15"></div>
 
-</div>
+  </div>
 
-<div class="controls">
-  <button onclick="$('#flipbook').turn('page', 1)">⏮ עמוד ראשון</button>
-  <button onclick="$('#flipbook').turn('previous')">◀ הקודם</button>
-  <button onclick="$('#flipbook').turn('next')">הבא ▶</button>
-  <button onclick="$('#flipbook').turn('page', $('#flipbook').turn('pages'))">⏭ אחרון</button>
-  <button onclick="window.print()">🖨️ הדפס</button>
+  <div class="controls">
+    <button onclick="$('#flipbook').turn('page', 1)">⏮ עמוד ראשון</button>
+    <button onclick="$('#flipbook').turn('previous')">◀ הקודם</button>
+    <button onclick="$('#flipbook').turn('next')">הבא ▶</button>
+    <button onclick="$('#flipbook').turn('page', $('#flipbook').turn('pages'))">⏭ אחרון</button>
+    <button onclick="window.print()">🖨️ הדפס</button>
+  </div>
+  <div id="page-number">עמוד: 1</div>
 </div>
-<div id="page-number">עמוד: 1</div>
 
 <script>
   $(document).ready(function(){
@@ -117,7 +127,6 @@
       acceleration: true
     });
 
-    // קליק על הדף
     $('#flipbook').on('click', '.page', function(e) {
       var offset = $(this).offset();
       var relX = e.pageX - offset.left;
@@ -129,12 +138,10 @@
       }
     });
 
-    // עמוד נוכחי
     $('#flipbook').bind('turned', function(event, page) {
       $('#page-number').text('עמוד: ' + page);
     });
 
-    // מקלדת
     $(document).keydown(function(e){
       if (e.keyCode == 37) $('#flipbook').turn('previous');
       if (e.keyCode == 39) $('#flipbook').turn('next');
