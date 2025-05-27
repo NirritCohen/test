@@ -3,7 +3,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>חוברת דיגיטלית סופית</title>
+  <title>חוברת דיגיטלית יום עיון</title>
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
   <style>
@@ -130,17 +130,16 @@
       acceleration: true
     });
 
-    // תיקון RTL: לוגיקה מותאמת לכיוון כתיבה
+    // תקין ל-RTL: צד ימין מחזיר אחורה, שמאל מתקדם קדימה
     $('#flipbook').on('click', '.page', function(e) {
       const rect = this.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const midpoint = rect.width / 2;
-      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
 
-      if ((isRTL && clickX > midpoint) || (!isRTL && clickX < midpoint)) {
-        $('#flipbook').turn('previous');
+      if (clickX > midpoint) {
+        $('#flipbook').turn('previous'); // ימין = אחורה
       } else {
-        $('#flipbook').turn('next');
+        $('#flipbook').turn('next');     // שמאל = קדימה
       }
     });
 
@@ -162,4 +161,3 @@
 
 </body>
 </html>
-
