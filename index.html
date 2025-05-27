@@ -27,11 +27,11 @@
     }
     #flipbook {
       width: 1300px;
-      height: 900px;
+      height: calc(100vh - 100px); /* תיקון גזירה תחתונה */
     }
     .page {
       width: 650px;
-      height: 900px;
+      height: 100%;
       margin: 0 5px;
       background: #170d2b;
       box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -75,11 +75,11 @@
     @media (max-width: 768px) {
       #flipbook {
         width: 100vw;
-        height: 80vh;
+        height: 80dvh;
       }
       .page {
         width: 100vw;
-        height: 80vh;
+        height: 100%;
       }
     }
   </style>
@@ -120,9 +120,12 @@
 
 <script>
   $(document).ready(function(){
+    const controlsHeight = document.querySelector('.controls').offsetHeight + 40;
+    document.querySelector('#flipbook').style.height = `calc(100vh - ${controlsHeight}px)`;
+
     $('#flipbook').turn({
       width: 1300,
-      height: 900,
+      height: $('#flipbook').height(),
       autoCenter: true,
       elevation: 50,
       gradients: true,
@@ -130,16 +133,15 @@
       acceleration: true
     });
 
-    // תקין ל-RTL: צד ימין מחזיר אחורה, שמאל מתקדם קדימה
     $('#flipbook').on('click', '.page', function(e) {
       const rect = this.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const midpoint = rect.width / 2;
 
       if (clickX > midpoint) {
-        $('#flipbook').turn('previous'); // ימין = אחורה
+        $('#flipbook').turn('previous');
       } else {
-        $('#flipbook').turn('next');     // שמאל = קדימה
+        $('#flipbook').turn('next');
       }
     });
 
