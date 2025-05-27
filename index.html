@@ -52,18 +52,32 @@
     <div class="page"><img src="images/page_15.jpg" alt="Page 15"></div>
 
   </div>
-  <script>
-    $(document).ready(function(){
-      $('#flipbook').turn({
-        width: 1300,
-        height: 900,
-        autoCenter: true,
-        elevation: 50,
-        gradients: true,
-        display: 'double',
-        acceleration: true
-      });
+<script>
+  $(document).ready(function(){
+    $('#flipbook').turn({
+      width: 1300,
+      height: 900,
+      autoCenter: true,
+      elevation: 50,
+      gradients: true,
+      display: 'double',
+      acceleration: true
     });
-  </script>
+
+    // דפדוף בלחיצה על צד הדף
+    $('#flipbook').on('click', '.page', function(e) {
+      var offset = $(this).offset();
+      var relX = e.pageX - offset.left;
+      var pageWidth = $(this).width();
+      
+      if (relX < pageWidth / 2) {
+        $('#flipbook').turn('previous');
+      } else {
+        $('#flipbook').turn('next');
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
