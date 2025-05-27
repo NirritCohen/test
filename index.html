@@ -3,7 +3,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>חוברת דיגיטלית יום עיון</title>
+  <title>חוברת דיגיטלית סופית</title>
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
   <style>
@@ -75,11 +75,11 @@
     @media (max-width: 768px) {
       #flipbook {
         width: 100vw;
-        height: 70vh;
+        height: 80vh;
       }
       .page {
-        width: 50vw;
-        height: 70vh;
+        width: 100vw;
+        height: 80vh;
       }
     }
   </style>
@@ -126,15 +126,18 @@
       autoCenter: true,
       elevation: 50,
       gradients: true,
-      display: 'double',
+      display: window.innerWidth < 768 ? 'single' : 'double',
       acceleration: true
     });
 
+    // תיקון RTL: לוגיקה מותאמת לכיוון כתיבה
     $('#flipbook').on('click', '.page', function(e) {
       const rect = this.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const midpoint = rect.width / 2;
-      if (clickX < midpoint) {
+      const isRTL = document.documentElement.getAttribute('dir') === 'rtl';
+
+      if ((isRTL && clickX > midpoint) || (!isRTL && clickX < midpoint)) {
         $('#flipbook').turn('previous');
       } else {
         $('#flipbook').turn('next');
@@ -159,3 +162,4 @@
 
 </body>
 </html>
+
