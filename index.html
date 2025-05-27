@@ -3,7 +3,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>חוברת דיגיטלית מתקדמת</title>
+  <title>חוברת דיגיטלית יום עיון</title>
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
   <style>
@@ -18,11 +18,11 @@
       overflow: hidden;
     }
     .container {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      flex: 1;
+      align-items: center;
       overflow: hidden;
     }
     #flipbook {
@@ -42,11 +42,14 @@
       object-fit: contain;
     }
     .controls {
-      margin-top: 10px;
+      height: 60px;
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
       justify-content: center;
+      align-items: center;
+      gap: 10px;
+      background-color: #170d2b;
+      z-index: 150;
+      position: relative;
     }
     .controls button {
       padding: 10px 20px;
@@ -56,7 +59,7 @@
     #page-number {
       color: #fff;
       text-align: center;
-      margin-top: 8px;
+      margin-top: 10px;
       font-size: 1.1rem;
     }
     .contrast-toggle {
@@ -104,15 +107,15 @@
     <div class="page"><img src="images/page_15.jpg" alt="Page 15"></div>
 
   </div>
-
-  <div class="controls">
-    <button onclick="$('#flipbook').turn('page', 1)">⏮ עמוד ראשון</button>
-    <button onclick="$('#flipbook').turn('previous')">◀ הקודם</button>
-    <button onclick="$('#flipbook').turn('next')">הבא ▶</button>
-    <button onclick="$('#flipbook').turn('page', $('#flipbook').turn('pages'))">⏭ אחרון</button>
-    <button onclick="window.print()">🖨️ הדפס</button>
-  </div>
   <div id="page-number">עמוד: 1</div>
+</div>
+
+<div class="controls">
+  <button onclick="$('#flipbook').turn('page', 1)">⏮ עמוד ראשון</button>
+  <button onclick="$('#flipbook').turn('previous')">◀ הקודם</button>
+  <button onclick="$('#flipbook').turn('next')">הבא ▶</button>
+  <button onclick="$('#flipbook').turn('page', $('#flipbook').turn('pages'))">⏭ אחרון</button>
+  <button onclick="window.print()">🖨️ הדפס</button>
 </div>
 
 <script>
@@ -127,7 +130,6 @@
       acceleration: true
     });
 
-    // יציב: קליק לפי bounding box
     $('#flipbook').on('click', '.page', function(e) {
       const rect = this.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
