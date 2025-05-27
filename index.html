@@ -127,11 +127,12 @@
       acceleration: true
     });
 
+    // יציב: קליק לפי bounding box
     $('#flipbook').on('click', '.page', function(e) {
-      var offset = $(this).offset();
-      var relX = e.pageX - offset.left;
-      var pageWidth = $(this).width();
-      if (relX < pageWidth / 2) {
+      const rect = this.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const midpoint = rect.width / 2;
+      if (clickX < midpoint) {
         $('#flipbook').turn('previous');
       } else {
         $('#flipbook').turn('next');
