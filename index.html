@@ -7,7 +7,6 @@
   <script src="turn.js"></script>
   <style>
     body {
-      background: #f7f7fc;
       margin: 0;
       padding: 0;
       font-family: sans-serif;
@@ -15,6 +14,8 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      background: url('images/book-background.jpg') center center no-repeat;
+      background-size: cover;
     }
     .container {
       flex: 1;
@@ -26,14 +27,36 @@
     }
     #flipbook-desktop, #flipbook-mobile {
       height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     #flipbook-mobile {
       display: none;
     }
+    .flipbook {
+      position: relative;
+    }
     .page {
       width: 100%;
       height: 100%;
-      background: #170d2b;
+      background: transparent;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.1);
+    }
+    .page::before, .page::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      background: linear-gradient(to right, rgba(0,0,0,0.05), transparent);
+      z-index: 2;
+    }
+    .page::before {
+      left: -10px;
+    }
+    .page::after {
+      right: -10px;
     }
     .page img {
       width: 100%;
@@ -63,18 +86,29 @@
       cursor: pointer;
     }
     .flipbook.double {
-      gap: 18px; 
-      display: flex !important;; 
+      display: flex !important;
+      gap: 0px;
       justify-content: center;
+      position: relative;
     }
-
+    .flipbook.double::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.1);
+      z-index: 3;
+    }
 
     @media (max-width: 768px) {
       #flipbook-desktop {
         display: none;
       }
       #flipbook-mobile {
-        display: block;
+        display: flex;
       }
     }
   </style>
