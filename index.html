@@ -45,18 +45,19 @@
     }
     .page {
       width: auto;
-      height: 100%;
-      aspect-ratio: auto;
+      height: 100vh;
       background: rgba(255, 255, 255, 0.8);
       box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
       box-sizing: border-box; /* קריטי לדיוק */
+      border: None
       padding: 0; /* ← מוסיף "שוליים" סביב התמונה בתוך הדף */
+      margin: 0;
       overflow: hidden;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative
     }
+    
     .page::before, .page::after {
       content: "";
       position: absolute;
@@ -74,12 +75,10 @@
     }
     .page img {
       width: auto;
-      height: 100%;
+      height: 100vh;
       object-fit: contain; /* זה הקריטי – התמונה ממלאת את הדף */
       display: block;
-      margin: 0;
-      pointer-events: none;
-      border-radius: 4px; /* אופציונלי - שוליים מעוגלים */
+
     }
     #page-number {
       font-size: 0.9rem;
