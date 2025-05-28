@@ -234,17 +234,22 @@ $(window).on('load', function() {
   const displayMode = isMobile ? 'single' : 'double';
 
   const controlsHeight = document.querySelector('.controls').offsetHeight;
-  const availableHeight = window.innerHeight - controlsHeight;
-  
+  const pageHeight = window.innerHeight - controlsHeight;
+  const pageWidth = Math.floor(pageHeight / 1.4);
+  const bookWidth = displayMode === 'double' ? pageWidth * 2 : pageWidth;
+
   $(target).turn({
-    width: window.innerWidth,
-    height: availableHeight,
+    width: bookWidth,
+    height: pageHeight,
     autoCenter: true,
     display: displayMode,
+    direction: 'rtl',
+    acceleration: true,
     gradients: true,
-    elevation: 50,
-    acceleration: true
+    elevation: 50
   });
+});
+
 
 
   $(target).on('click', '.page', function(e) {
