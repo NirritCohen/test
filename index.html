@@ -25,7 +25,7 @@
       overflow: hidden;
     }
     #flipbook-desktop, #flipbook-mobile {
-      height: calc(100vh - 20px);
+      height: window.innerHeight * 0.8;
     }
     #flipbook-mobile {
       display: none;
@@ -172,15 +172,19 @@ $(window).on('load', function() {
   const target = isMobile ? '#flipbook-mobile' : '#flipbook-desktop';
   const displayMode = isMobile ? 'single' : 'double';
 
+  const controlsHeight = document.querySelector('.controls').offsetHeight;
+  const availableHeight = window.innerHeight - controlsHeight;
+  
   $(target).turn({
     width: window.innerWidth,
-    height: window.innerHeight * 0.8,
+    height: availableHeight,
     autoCenter: true,
     display: displayMode,
     gradients: true,
     elevation: 50,
     acceleration: true
   });
+
 
   $(target).on('click', '.page', function(e) {
     const rect = this.getBoundingClientRect();
