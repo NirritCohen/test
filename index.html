@@ -35,11 +35,7 @@
       display: none;
     }
     .flipbook {
-      height: 100vh;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden; 
       position: relative;
     }
     .page {
@@ -231,17 +227,19 @@ $(window).on('load', function () {
   const pageHeight = window.innerHeight - controlsHeight;
   const pageWidth = Math.floor(pageHeight / 1.4);
 
+  // הגדרת גובה ורוחב של flipbook
   $(target).css({
     width: displayMode === 'double' ? pageWidth * 2 : pageWidth,
     height: pageHeight
   });
 
-  // Set each .page to fixed size
+  // הגדרת גובה ורוחב של כל עמוד
   $(target).find('.page').css({
     width: pageWidth,
     height: pageHeight
   });
 
+  // הפעלת turn.js
   $(target).turn({
     width: displayMode === 'double' ? pageWidth * 2 : pageWidth,
     height: pageHeight,
@@ -254,7 +252,6 @@ $(window).on('load', function () {
   });
 });
 
-});
 
 
 
