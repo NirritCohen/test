@@ -228,18 +228,17 @@ function getCurrentFlipbook() {
   return window.innerWidth <= 768 ? $('#flipbook-mobile') : $('#flipbook-desktop');
 }
 
-$(window).on('load', function() {
+$(window).on('load', function () {
   const isMobile = window.innerWidth <= 768;
   const target = isMobile ? '#flipbook-mobile' : '#flipbook-desktop';
   const displayMode = isMobile ? 'single' : 'double';
 
-  const controlsHeight = document.querySelector('.controls').offsetHeight;
+  const controlsHeight = document.querySelector('.controls').offsetHeight || 0;
   const pageHeight = window.innerHeight - controlsHeight;
-  const pageWidth = Math.floor(pageHeight / 1.4);
-  const bookWidth = displayMode === 'double' ? pageWidth * 2 : pageWidth;
+  const pageWidth = Math.floor(pageHeight / 1.4); // יחס A4
 
   $(target).turn({
-    width: bookWidth,
+    width: pageWidth,     // 👈 רק עמוד אחד
     height: pageHeight,
     autoCenter: true,
     display: displayMode,
@@ -249,6 +248,7 @@ $(window).on('load', function() {
     elevation: 50
   });
 });
+
 
 
 
