@@ -149,41 +149,54 @@
 
   
 <script>
-  $(document).ready(function(){
-    const controlsHeight = document.querySelector('.controls').offsetHeight + 40;
-    document.querySelector('#flipbook').style.height = `calc(100vh - ${controlsHeight}px)`;
+  function initFlipbook() {
+  const isMobile = window.innerWidth <= 768;
+  $('#flipbook').turn('destroy'); // אם היה מופעל קודם
 
-    $('#flipbook').turn({
-      width: 1300,
-      height: $('#flipbook').height(),
-      autoCenter: true,
-      elevation: 50,
-      gradients: true,
-      display: window.innerWidth < 768 ? 'single' : 'double',
-      acceleration: true
-    });
-
-    $('#flipbook').on('click', '.page', function(e) {
-      const rect = this.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const midpoint = rect.width / 2;
-
-      if (clickX > midpoint) {
-        $('#flipbook').turn('previous');
-      } else {
-        $('#flipbook').turn('next');
-      }
-    });
-
-    $('#flipbook').bind('turned', function(event, page) {
-      $('#page-number').text('עמוד: ' + page);
-    });
-
-    $(document).keydown(function(e){
-      if (e.keyCode == 37) $('#flipbook').turn('previous');
-      if (e.keyCode == 39) $('#flipbook').turn('next');
-    });
+  $('#flipbook').turn({
+    width: isMobile ? window.innerWidth : 1300,
+    height: isMobile ? window.innerHeight * 0.8 : $('#flipbook').height(),
+    autoCenter: true,
+    elevation: 50,
+    gradients: true,
+    display: isMobile ? 'single' : 'double',
+    acceleration: true
   });
+}
+
+$(document).ready(function(){
+  const controlsHeight = document.querySelector('.controls').offsetHeight + 40;
+  document.querySelector('#flipbook').style.height = `calc(100vh - ${controlsHeight}px)`;
+
+  initFlipbook(); // קריאה ראשונית
+
+  $(window).on('resize', function() {
+    initFlipbook(); // יתאים את החוברת מחדש כשמשנים גודל
+  });
+
+  $('#flipbook').on('click', '.page', function(e) {
+    const rect = this.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const midpoint = rect.width / 2;
+
+    if (clickX > midpoint) {
+      $('#flipbook').turn('previous');
+    } else {
+      $('#flipbook').turn('next');
+    }
+  });
+
+  $('#flipbook').bind('turned', function(event, page) {
+    $('#page-number').text('עמוד: ' + page);
+  });
+
+  $(document).keydown(function(e){
+    if (e.keyCode == 37) $('#flipbook').turn('previous');
+    if (e.keyCode == 39) $('#flipbook').turn('next');
+  });
+});
+
+
 
   function toggleContrast() {
     const body = document.body;
