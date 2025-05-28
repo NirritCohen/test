@@ -35,6 +35,9 @@
       display: none;
     }
     .flipbook {
+      height: 100%;
+      max-width: 90vw; /* למשל, 90% מרוחב המסך */
+      margin: 0 auto;
       position: relative;
     }
     .page {
@@ -64,14 +67,12 @@
       right: -10px;
     }
     .page img {
-      width: 98%;
-      height: 98%;
-      object-fit: cover;
+      height: 100%;
+      width: auto; /* זה חשוב מאוד כדי לשמור על יחס! */
+      object-fit: contain;
       display: block;
-      margin: auto; /* ממרכז את התמונה בדף */
-      pointer-events: none; /* מונע קליקים שיחבלו באנימציה */
-      user-select: none;
-      border-radius: 4px;
+      margin: 0 auto;
+      pointer-events: none;
     }
     #page-number {
       font-size: 0.9rem;
