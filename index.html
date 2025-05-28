@@ -151,7 +151,11 @@
 <script>
   function initFlipbook() {
   const isMobile = window.innerWidth <= 768;
-  $('#flipbook').turn('destroy'); // אם היה מופעל קודם
+
+  // אם flipbook כבר קיים – נרסק אותו לפני יצירה מחודשת
+  if ($("#flipbook").data("turn")) {
+    $('#flipbook').turn('destroy');
+  }
 
   $('#flipbook').turn({
     width: isMobile ? window.innerWidth : 1300,
@@ -163,6 +167,7 @@
     acceleration: true
   });
 }
+
 
 $(document).ready(function(){
   const controlsHeight = document.querySelector('.controls').offsetHeight + 40;
