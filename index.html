@@ -233,20 +233,33 @@ $(window).on('load', function () {
   const target = isMobile ? '#flipbook-mobile' : '#flipbook-desktop';
   const displayMode = isMobile ? 'single' : 'double';
 
-  const controlsHeight = document.querySelector('.controls').offsetHeight || 0;
+  const controlsHeight = document.querySelector('.controls')?.offsetHeight || 0;
   const pageHeight = window.innerHeight - controlsHeight;
-  const pageWidth = Math.floor(pageHeight / 1.4); // יחס A4
+  const pageWidth = Math.floor(pageHeight / 1.4);
+
+  $(target).css({
+    width: displayMode === 'double' ? pageWidth * 2 : pageWidth,
+    height: pageHeight
+  });
+
+  // Set each .page to fixed size
+  $(target).find('.page').css({
+    width: pageWidth,
+    height: pageHeight
+  });
 
   $(target).turn({
-    width: pageWidth,     // 👈 רק עמוד אחד
+    width: displayMode === 'double' ? pageWidth * 2 : pageWidth,
     height: pageHeight,
     autoCenter: true,
     display: displayMode,
     direction: 'rtl',
-    acceleration: true,
+    elevation: 50,
     gradients: true,
-    elevation: 50
+    acceleration: true
   });
+});
+
 });
 
 
