@@ -201,30 +201,6 @@ $(window).on('load', function() {
 });
 
 
-  $('#flipbook').on('click', '.page', function(e) {
-    const rect = this.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const midpoint = rect.width / 2;
-
-    if (clickX > midpoint) {
-      $('#flipbook').turn('previous');
-    } else {
-      $('#flipbook').turn('next');
-    }
-  });
-
-  $('#flipbook').bind('turned', function(event, page) {
-    $('#page-number').text('עמוד: ' + page);
-  });
-
-  $(document).keydown(function(e){
-    if (e.keyCode == 37) $('#flipbook').turn('previous');
-    if (e.keyCode == 39) $('#flipbook').turn('next');
-  });
-});
-
-
-
   function toggleContrast() {
     const body = document.body;
     body.style.background = body.style.background === 'black' ? '#f7f7fc' : 'black';
