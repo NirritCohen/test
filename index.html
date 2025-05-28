@@ -62,16 +62,11 @@
       font-size: 0.9rem;
       cursor: pointer;
     }
-    .flipbook.double .page-wrapper:nth-child(odd)::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: -6px;
-      width: 1px;
-      height: 100%;
-      background-color: #999;
+    .flipbook.double {
+      gap: 8px; /* רווח בין העמודים */
+      display: flex !important; /* לוודא שהgap יעבוד */
+      justify-content: center;
     }
-
 
 
     @media (max-width: 768px) {
