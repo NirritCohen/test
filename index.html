@@ -43,8 +43,9 @@
       background: rgba(255, 255, 255, 0.8);
       box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
       box-sizing: border-box; /* קריטי לדיוק */
-      padding: 0.5%; /* ← מוסיף "שוליים" סביב התמונה בתוך הדף */
+      padding: 0; /* ← מוסיף "שוליים" סביב התמונה בתוך הדף */
       overflow: hidden;
+      margin: 0;
       position: relative
     }
     .page::before, .page::after {
@@ -63,13 +64,14 @@
       right: -10px;
     }
     .page img {
-      width: 96%;
-      height: 96%;
-      object-fit: contain;
+      width: 98%;
+      height: 98%;
+      object-fit: cover;
       display: block;
       margin: auto; /* ממרכז את התמונה בדף */
       pointer-events: none; /* מונע קליקים שיחבלו באנימציה */
       user-select: none;
+      border-radius: 4px;
     }
     #page-number {
       font-size: 0.9rem;
