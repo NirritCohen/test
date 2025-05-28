@@ -187,52 +187,46 @@
 
 <script>
 function getCurrentFlipbook() {
-  return window.currentFlipbook;
+  return window.innerWidth <= 768 ? $('#flipbook-mobile') : $('#flipbook-desktop');
 }
 
 $(window).on('load', function() {
   const isMobile = window.innerWidth <= 768;
-  const targetSelector = isMobile ? '#flipbook-mobile' : '#flipbook-desktop';
+  const target = isMobile ? '#flipbook-mobile' : '#flipbook-desktop';
   const displayMode = isMobile ? 'single' : 'double';
-  const $flipbook = $(targetSelector);
 
-  const controlsHeight = document.querySelector('.controls').offsetHeight || 0;
+  const controlsHeight = document.querySelector('.controls').offsetHeight;
   const availableHeight = window.innerHeight - controlsHeight;
-
-  $flipbook.turn({
+  
+  $(target).turn({
     width: window.innerWidth,
     height: availableHeight,
     autoCenter: true,
     display: displayMode,
     gradients: true,
-    elevation: 0,
-    acceleration: true,
-    direction: 'rtl' // ← כיוון עברי
+    elevation: 50,
+    acceleration: true
   });
 
-  // שמירה ל-global כדי שכפתורים יעבדו
-  window.currentFlipbook = $flipbook;
 
-  // דפדוף בלחיצה על עמוד
-  $flipbook.on('click', '.page', function(e) {
+  $(target).on('click', '.page', function(e) {
     const rect = this.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const midpoint = rect.width / 2;
 
-    // ספר בעברית → לחיצה בצד ימין מחזירה אחורה
     if (clickX > midpoint) {
-      $flipbook.turn('previous');
+      $(target).turn('previous');
     } else {
-      $flipbook.turn('next');
+      $(target).turn('next');
     }
   });
 
-  // עדכון מספר העמוד
-  $flipbook.bind('turned', function(event, page) {
+  $(target).bind('turned', function(event, page) {
     $('#page-number').text('עמוד: ' + page);
   });
 });
 </script>
+
 
 </body>
 </html>
