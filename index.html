@@ -227,40 +227,41 @@ $(window).on('load', function () {
   const pageHeight = window.innerHeight - controlsHeight;
   const pageWidth = Math.floor(pageHeight / 1.4);
 
-  // הגדרת גובה ורוחב של flipbook
+  // ודאי שהאלמנט קיים לפני שמאתחלים
+  if (!$(target).length) return;
+
+  // הגדר גודל של החוברת (כפול עמוד אחד אם double)
+  const bookWidth = displayMode === 'double' ? pageWidth * 2 : pageWidth;
+
+  // הגדר גודל אלמנט flipbook
   $(target).css({
-    width: displayMode === 'double' ? pageWidth * 2 : pageWidth,
+    width: bookWidth,
     height: pageHeight
   });
 
-  // הגדרת גובה ורוחב של כל עמוד
-  $(target).find('.page').css({
+  // הגדר גודל כל עמוד בנפרד
+  $(target).children('.page').css({
     width: pageWidth,
     height: pageHeight
   });
 
   // הפעלת turn.js
   $(target).turn({
-    width: displayMode === 'double' ? pageWidth * 2 : pageWidth,
+    width: bookWidth,
     height: pageHeight,
-    autoCenter: true,
     display: displayMode,
+    autoCenter: true,
     direction: 'rtl',
     elevation: 50,
     gradients: true,
     acceleration: true
   });
-});
 
-
-
-
-
-  $(target).on('click', '.page', function(e) {
+  // דפדוף ע"י קליק על הצדדים
+  $(target).on('click', '.page', function (e) {
     const rect = this.getBoundingClientRect();
     const clickX = e.clientX - rect.left;
     const midpoint = rect.width / 2;
-
     if (clickX > midpoint) {
       $(target).turn('previous');
     } else {
@@ -268,11 +269,13 @@ $(window).on('load', function () {
     }
   });
 
-  $(target).bind('turned', function(event, page) {
+  // עדכון מספר עמוד
+  $(target).bind('turned', function (event, page) {
     $('#page-number').text('עמוד: ' + page);
   });
 });
 </script>
+
 
 </body>
 </html>
