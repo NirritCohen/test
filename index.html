@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>חוברת דיגיטלית יום עיון</title>
-  <script src="jquery.js"></script>
-  <script src="turn.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@4/turn.min.js"></script>
   <style>
     body {
       background: #f7f7fc;
@@ -25,21 +24,28 @@
       align-items: center;
       overflow: hidden;
     }
-    #flipbook {
-      width: 1300px;
-      height: calc(100vh - 100px); /* תיקון גזירה תחתונה */
+    #flipbook-desktop, #flipbook-mobile {
+      width: 100vw;
+      height: calc(100vh - 100px);
+    }
+    #flipbook-mobile {
+      display: none;
     }
     .page {
-      width: 650px;
+      width: 100%;
       height: 100%;
-      margin: 0 5px;
       background: #170d2b;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
     .page img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+    }
+    #page-number {
+      color: #000;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-top: 10px;
     }
     .controls {
       height: 60px;
@@ -48,57 +54,28 @@
       align-items: center;
       gap: 10px;
       background-color: #170d2b;
-      z-index: 150;
-      position: relative;
+      color: white;
     }
     .controls button {
       padding: 10px 20px;
       font-size: 1rem;
       cursor: pointer;
     }
-    #page-number {
-      color: #fff;
-      text-align: center;
-      margin-top: 10px;
-      font-size: 1.1rem;
-    }
-    .contrast-toggle {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      padding: 5px 10px;
-      background: #fff;
-      border: none;
-      cursor: pointer;
-      z-index: 200;
-    }
+
     @media (max-width: 768px) {
-      #flipbook {
-        width: 100vw;
-        height: 80dvh;
+      #flipbook-desktop {
+        display: none;
       }
-      .page {
-        width: 100vw;
-        height: 100%;
-        margin: 0;
-        box-shadow: none;
-      }
-      .container {
-        padding: 0;
-        margin: 0;
-        width: 100vw;
+      #flipbook-mobile {
+        display: block;
       }
     }
-
-
   </style>
 </head>
 <body>
 
-<button class="contrast-toggle" onclick="toggleContrast()">🌓 מצב ניגודיות</button>
-
 <div class="container">
-  <div id="flipbook">
+  <div id="flipbook-desktop" class="flipbook">
     <div class="page"><img src="images/page_1.jpg" alt="Page 1"></div>
     <div class="page"><img src="images/page_2.jpg" alt="Page 2"></div>
     <div class="page"><img src="images/page_3.jpg" alt="Page 3"></div>
@@ -134,87 +111,93 @@
     <div class="page"><img src="images/page_14.jpg" alt="Page 14"></div>
     <div class="page"><img src="images/page_15.jpg" alt="Page 15"></div>
     <div class="page"><img src="images/page_16.jpg" alt="Page 16"></div>
-
   </div>
+
+  <div id="flipbook-mobile" class="flipbook">
+    <div class="page"><img src="images/page_1.jpg" alt="Page 1"></div>
+    <div class="page"><img src="images/page_2.jpg" alt="Page 2"></div>
+    <div class="page"><img src="images/page_3.jpg" alt="Page 3"></div>
+    <div class="page"><img src="images/page_4.jpg" alt="Page 4"></div>
+    <div class="page"><img src="images/page_5.jpg" alt="Page 5"></div>
+    <div class="page"><img src="images/page_6.jpg" alt="Page 6"></div>
+    <div class="page"><img src="images/page_7.jpg" alt="Page 7"></div>
+    <div class="page"><img src="images/page_8.jpg" alt="Page 8"></div>
+    <div class="page"><img src="images/page_9.jpg" alt="Page 9"></div>
+    <div class="page"><img src="images/page_10.jpg" alt="Page 10"></div>
+    <div class="page"><img src="images/page_11.jpg" alt="Page 11"></div>
+    <div class="page" style="position: relative;">
+      <img src="images/page_12.jpg" alt="Page 12">
+      <a href="https://www.nevo.co.il/law_html/law00/73705.htm"
+         target="_blank"
+         style="position: absolute; top: 37%; left: 70%; width: 15%; height: 5%; display: block; cursor: pointer;"
+         title="לפתיחת הלינק - לחץ כאן"
+         onmouseover="this.style.outline='2px dashed #00f'"
+         onmouseout="this.style.outline='none'">
+      </a>
+    </div>
+    <div class="page" style="position: relative;">
+      <img src="images/page_13.jpg" alt="Page 13">
+      <a href="https://www.gov.il/BlobFolder/guide/extended_producer_responsibility/he/waste_lithium-batteries.docx"
+         target="_blank"
+         style="position: absolute; top: 94%; left: 45%; width: 15%; height: 5%; display: block; cursor: pointer;"
+         title="להורדת המסמך - לחץ כאן"
+         onmouseover="this.style.outline='2px dashed #00f'"
+         onmouseout="this.style.outline='none'">
+      </a>
+    </div>
+
+    <div class="page"><img src="images/page_14.jpg" alt="Page 14"></div>
+    <div class="page"><img src="images/page_15.jpg" alt="Page 15"></div>
+    <div class="page"><img src="images/page_16.jpg" alt="Page 16"></div>
+  </div>
+
   <div id="page-number">עמוד: 1</div>
 </div>
 
 <div class="controls">
-  <button onclick="$('#flipbook').turn('page', 1)">⏮ עמוד ראשון</button>
-  <button onclick="$('#flipbook').turn('previous')">◀ הקודם</button>
-  <button onclick="$('#flipbook').turn('next')">הבא ▶</button>
-  <button onclick="$('#flipbook').turn('page', $('#flipbook').turn('pages'))">⏭ אחרון</button>
-  <button onclick="window.print()">🖨️ הדפס</button>
+  <button onclick="getCurrentFlipbook().turn('page', 1)">⏮ עמוד ראשון</button>
+  <button onclick="getCurrentFlipbook().turn('previous')">◀ הקודם</button>
+  <button onclick="getCurrentFlipbook().turn('next')">הבא ▶</button>
+  <button onclick="getCurrentFlipbook().turn('page', getCurrentFlipbook().turn('pages'))">⏭ אחרון</button>
 </div>
 
-  
 <script>
-  function initFlipbook() {
-    const isMobile = window.innerWidth <= 768;
+function getCurrentFlipbook() {
+  return window.innerWidth <= 768 ? $('#flipbook-mobile') : $('#flipbook-desktop');
+}
 
-    // ביטול ספר קודם אם קיים
-    if ($("#flipbook").data("turn")) {
-      $("#flipbook").turn("destroy").removeClass("turnjs");
-    }
+$(window).on('load', function() {
+  const isMobile = window.innerWidth <= 768;
+  const target = isMobile ? '#flipbook-mobile' : '#flipbook-desktop';
+  const displayMode = isMobile ? 'single' : 'double';
 
-    // קביעת מימדים לפי מצב
-    const width = isMobile ? document.documentElement.clientWidth : 1300;
-    const height = isMobile ? document.documentElement.clientHeight * 0.8 : document.querySelector('#flipbook').offsetHeight;
-
-    $('#flipbook').css({
-      width: `${width}px`,
-      height: `${height}px`
-    });
-
-    $('#flipbook').turn({
-      width: width,
-      height: height,
-      autoCenter: true,
-      elevation: 50,
-      gradients: true,
-      display: isMobile ? 'single' : 'double',
-      acceleration: true
-    });
-  }
-
-  window.addEventListener("load", () => {
-    const controlsHeight = document.querySelector('.controls').offsetHeight + 40;
-    document.querySelector('#flipbook').style.height = `calc(100vh - ${controlsHeight}px)`;
-
-    initFlipbook();
-
-    window.addEventListener("resize", () => {
-      initFlipbook();
-    });
-
-    $('#flipbook').on('click', '.page', function (e) {
-      const rect = this.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const midpoint = rect.width / 2;
-
-      if (clickX > midpoint) {
-        $('#flipbook').turn('previous');
-      } else {
-        $('#flipbook').turn('next');
-      }
-    });
-
-    $('#flipbook').bind('turned', function (event, page) {
-      $('#page-number').text('עמוד: ' + page);
-    });
-
-    $(document).keydown(function (e) {
-      if (e.keyCode == 37) $('#flipbook').turn('previous');
-      if (e.keyCode == 39) $('#flipbook').turn('next');
-    });
+  $(target).turn({
+    width: window.innerWidth,
+    height: window.innerHeight * 0.8,
+    autoCenter: true,
+    display: displayMode,
+    gradients: true,
+    elevation: 50,
+    acceleration: true
   });
 
-  function toggleContrast() {
-    const body = document.body;
-    body.style.background = body.style.background === 'black' ? '#f7f7fc' : 'black';
-  }
-</script>
+  $(target).on('click', '.page', function(e) {
+    const rect = this.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const midpoint = rect.width / 2;
 
+    if (clickX > midpoint) {
+      $(target).turn('previous');
+    } else {
+      $(target).turn('next');
+    }
+  });
+
+  $(target).bind('turned', function(event, page) {
+    $('#page-number').text('עמוד: ' + page);
+  });
+});
+</script>
 
 </body>
 </html>
