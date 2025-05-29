@@ -120,8 +120,6 @@
 
     #spine-line {
       position: absolute;
-      top: calc(100vh - 100% + 10px);
-      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       width: 40px; /* רוחב רחב יחסית לצל רך */
@@ -346,6 +344,20 @@ $(window).on('load', function () {
     gradients: true,
     acceleration: true
   });
+
+  // עדכון מיקום וגובה של הקו לאחר יצירת החוברת
+  function updateSpineLinePosition() {
+    const $book = $('#flipbook-desktop');
+    const bookOffset = $book.offset();
+    const bookHeight = $book.outerHeight();
+  
+    $('#spine-line').css({
+      top: bookOffset.top + 'px',
+      height: bookHeight + 'px'
+    });
+  }
+
+  setTimeout(updateSpineLinePosition, 200);
 
   // דפדוף ע"י קליק על הצדדים
   $(target).on('click', '.page', function (e) {
