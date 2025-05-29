@@ -294,6 +294,7 @@ $(window).on('load', function () {
   
   let pageHeight = windowHeight;
   let pageWidth = Math.floor(pageHeight / 1.4);
+
   
   // אם ברוחב מסך לא נכנסו שני עמודים – הקטן גובה בהתאם
   if (!isMobile && pageWidth * 2 > windowWidth) {
@@ -366,6 +367,19 @@ $(window).on('load', function () {
   } else {
     $('#spine-line').hide();
   }
+
+  const currentPage = $(target).turn('page');
+  const totalPages = $(target).turn('pages');
+  const isDouble = $(target).turn('display') === 'double';
+  const isMiddle = currentPage !== 1 && currentPage !== totalPages;
+  
+  if (isDouble && isMiddle) {
+    $('#spine-line').show();
+  } else {
+    $('#spine-line').hide();
+  }
+
+  
 
 });
 </script>
