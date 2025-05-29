@@ -345,12 +345,18 @@ $(window).on('load', function () {
   });
 
   function updateSpineLinePosition() {
-    const top = $(target).position().top; // מיקום יחסי ל-container
+    const $container = $('.container');
+    const $flipbook = $(target);
+  
+    const topOffset = $flipbook.offset().top - $container.offset().top;
+    const height = $flipbook.outerHeight(); // הכי מדויק
+  
     $('#spine-line').css({
-      top: top + 'px',
-      height: pageHeight + 'px'
+      top: topOffset + 'px',
+      height: height + 'px'
     });
   }
+
   setTimeout(updateSpineLinePosition, 200);
 
 
