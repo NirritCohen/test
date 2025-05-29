@@ -126,6 +126,9 @@
         
       #flipbook-desktop {
         display: none;
+        max-width: 100vw;
+        max-height: 100vh;
+        overflow: hidden;
       }
     
       #flipbook-mobile {
@@ -268,8 +271,18 @@ $(window).on('load', function () {
   const displayMode = isMobile ? 'single' : 'double';
 
   const controlsHeight = document.querySelector('.controls')?.offsetHeight || 0;
-  const pageHeight = window.innerHeight - controlsHeight;
-  const pageWidth = Math.floor(pageHeight / 1.4);
+  const windowHeight = window.innerHeight - controlsHeight - 10;
+  const windowWidth = window.innerWidth;
+  
+  let pageHeight = windowHeight;
+  let pageWidth = Math.floor(pageHeight / 1.4);
+  
+  // אם ברוחב מסך לא נכנסו שני עמודים – הקטן גובה בהתאם
+  if (!isMobile && pageWidth * 2 > windowWidth) {
+    pageWidth = Math.floor(windowWidth / 2);
+    pageHeight = Math.floor(pageWidth * 1.4);
+  }
+
 
   // ודאי שהאלמנט קיים לפני שמאתחלים
   if (!$(target).length) return;
