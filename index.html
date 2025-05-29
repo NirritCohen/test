@@ -123,7 +123,6 @@
       left: 50%;
       transform: translateX(-50%);
       width: 40px; /* רוחב רחב יחסית לצל רך */
-      height: 100% ;
       background: linear-gradient(
         to right,
         rgba(0, 0, 0, 0) 0%,
@@ -345,19 +344,20 @@ $(window).on('load', function () {
     acceleration: true
   });
 
-  // עדכון מיקום וגובה של הקו לאחר יצירת החוברת
   function updateSpineLinePosition() {
-    const $book = $('#flipbook-desktop');
-    const bookOffset = $book.offset();
-    const bookHeight = $book.outerHeight();
+    const bookRect = document.getElementById('flipbook-desktop').getBoundingClientRect();
+    const containerRect = document.querySelector('.container').getBoundingClientRect();
+  
+    const top = bookRect.top - containerRect.top;
+    const height = bookRect.height;
   
     $('#spine-line').css({
-      top: bookOffset.top + 'px',
-      height: bookHeight + 'px'
+      top: top + 'px',
+      height: height + 'px'
     });
   }
-
   setTimeout(updateSpineLinePosition, 200);
+
 
   // דפדוף ע"י קליק על הצדדים
   $(target).on('click', '.page', function (e) {
