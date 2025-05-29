@@ -346,6 +346,18 @@ $(window).on('load', function () {
     acceleration: true
   });
 
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      const top = $(target).position().top;
+      const height = $(target).outerHeight();
+      $('#spine-line').css({
+        top: top + 'px',
+        height: height + 'px'
+      });
+    });
+  }, 100);
+  
+
 
   // דפדוף ע"י קליק על הצדדים
   $(target).on('click', '.page', function (e) {
