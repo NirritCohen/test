@@ -110,8 +110,11 @@
       width: 8px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.2);
-      z-index: 10;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0,0,0,0.05));
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 20;
+      border-left: 1px solid rgba(255,255,255,0.2);
+      border-right: 1px solid rgba(255,255,255,0.2);
     }
 
     @media (max-width: 768px) {
