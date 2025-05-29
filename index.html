@@ -348,8 +348,17 @@ $(window).on('load', function () {
   $(target).bind('turned', function (event, page) {
     const totalPages = getCurrentFlipbook().turn('pages');
     $('#page-number').text('עמוד: ' + page + '/' + totalPages);
-
+  
+    // הצגת spine-line רק כשבאמצע החוברת
+    const isDouble = getCurrentFlipbook().turn('display') === 'double';
+    const isMiddle = page !== 1 && page !== totalPages;
+    if (isDouble && isMiddle) {
+      $('#spine-line').show();
+    } else {
+      $('#spine-line').hide();
+    }
   });
+
 
   
   if (displayMode === 'double') {
