@@ -2,6 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>חוברת דיגיטלית יום עיון</title>
   <script src="jquery.js"></script>
   <script src="turn.js"></script>
@@ -114,13 +115,37 @@
     }
 
     @media (max-width: 768px) {
+      html, body {
+        height: 100%;
+        overflow: hidden;
+      }
+    
       #flipbook-desktop {
         display: none;
       }
+    
       #flipbook-mobile {
         display: flex;
+        width: 100vw;
+        height: calc(100vh - 50px); /* השאירי מקום לכפתורים */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      #flipbook-mobile .page {
+        width: 90vw; /* שיהיה מרווח מהקצוות */
+        height: calc(90vw * 1.4); /* יחס גובה/רוחב של 1.4 */
+        max-height: 80vh; /* למניעת גלילה */
+      }
+    
+      #flipbook-mobile .page img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
     }
+
   </style>
 </head>
 <body>
