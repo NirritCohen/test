@@ -345,15 +345,10 @@ $(window).on('load', function () {
   });
 
   function updateSpineLinePosition() {
-    const bookRect = document.getElementById('flipbook-desktop').getBoundingClientRect();
-    const containerRect = document.querySelector('.container').getBoundingClientRect();
-  
-    const top = bookRect.top - containerRect.top;
-    const height = bookRect.height;
-  
+    const top = $(target).position().top; // מיקום יחסי ל-container
     $('#spine-line').css({
       top: top + 'px',
-      height: height + 'px'
+      height: pageHeight + 'px'
     });
   }
   setTimeout(updateSpineLinePosition, 200);
