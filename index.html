@@ -116,6 +116,20 @@
       pointer-events: none; /* שלא יתפוס קליקים */
     }
 
+    .spine-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+
     @media (max-width: 768px) {
       html, body {
         height: 100%;
@@ -177,6 +191,7 @@
 
 <div class="container">
   <div id="flipbook-desktop" class="flipbook">
+    <div class="spine-line"></div>
     <div class="page"><img src="images/page_1.jpg" alt="Page 1"></div>
     <div class="page"><img src="images/page_2.jpg" alt="Page 2"></div>
     <div class="page"><img src="images/page_3.jpg" alt="Page 3"></div>
