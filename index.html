@@ -252,7 +252,7 @@
 <div class="controls">
   <button onclick="getCurrentFlipbook().turn('page', 1)">⏭ עמוד ראשון</button>
   <button onclick="getCurrentFlipbook().turn('previous')">▶ הקודם</button>
-  <span id="page-number">עמוד: 1</span>
+  <span id="page-number">עמוד: 1/16</span>
   <button onclick="getCurrentFlipbook().turn('next')">הבא ◀</button>
   <button onclick="getCurrentFlipbook().turn('page', getCurrentFlipbook().turn('pages'))">⏮ אחרון</button>
 </div>
@@ -315,7 +315,9 @@ $(window).on('load', function () {
 
   // עדכון מספר עמוד
   $(target).bind('turned', function (event, page) {
-    $('#page-number').text('עמוד: ' + page);
+    const totalPages = getCurrentFlipbook().turn('pages');
+    $('#page-number').text('עמוד: ' + page + '/' + totalPages);
+
   });
 });
 </script>
