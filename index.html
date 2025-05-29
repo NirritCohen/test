@@ -119,14 +119,15 @@
     .spine-line {
       position: absolute;
       top: 0;
-      bottom: 0;
+      bottom: 50px;
       left: 50%;
       transform: translateX(-50%);
       width: 4px;
-      background: rgba(0, 0, 0, 0.3);
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
-      z-index: 9999;
+      background: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
       pointer-events: none;
+      display: none;
     }
 
 
@@ -190,7 +191,7 @@
 <body>
 
 <div class="container">
-  <div class="spine-line"></div> 
+  <div id="spine-line" class="spine-line"></div> 
   <div id="flipbook-desktop" class="flipbook">
     <div class="page"><img src="images/page_1.jpg" alt="Page 1"></div>
     <div class="page"><img src="images/page_2.jpg" alt="Page 2"></div>
@@ -349,6 +350,14 @@ $(window).on('load', function () {
     $('#page-number').text('עמוד: ' + page + '/' + totalPages);
 
   });
+
+  
+  if (displayMode === 'double') {
+    $('#spine-line').show();
+  } else {
+    $('#spine-line').hide();
+  }
+
 });
 </script>
 
