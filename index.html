@@ -116,19 +116,25 @@
       pointer-events: none; /* שלא יתפוס קליקים */
     }
 
-    .spine-line {
+    #spine-line {
       position: absolute;
-      top: 20px;
-      bottom: 50px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 4px;
-      background: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+      width: 40px; /* רוחב רחב יחסית לצל רך */
+      height: 100%;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0.15) 40%,
+        rgba(0, 0, 0, 0.05) 70%,
+        rgba(0, 0, 0, 0) 100%
+      );
       z-index: 1000;
       pointer-events: none;
       display: none;
     }
+
 
 
     @media (max-width: 768px) {
