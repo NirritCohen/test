@@ -19,6 +19,8 @@
       background-size: cover;
     }
     .container {
+      position: relative; /* נדרש למיקום spine-line */
+      height: 100%; /* הגבול שממנו ייגזר גובה השדרה */
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -327,8 +329,10 @@ $(window).on('load', function () {
   });
 
   $('#spine-line').css({
-    height: pageHeight + 'px'
+    top: $(target).position().top + 'px',
+    height: $(target).outerHeight() + 'px'
   });
+
 
   // הגדר גודל כל עמוד בנפרד
   $(target).children('.page').css({
