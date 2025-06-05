@@ -182,19 +182,24 @@
         object-fit: contain;
       }
       .controls {
-        padding: 6px 4vw;
+        padding: 4px 2vw;
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
         gap: 6px;
+        row-gap: 4px;
+        flex-direction: row;
+      }
+      
+      .controls button {
+        flex: 1 1 22%; /* מתאים ל-4 כפתורים בשורה */
+        max-width: 22%;
+        font-size: 0.7rem;
+        padding: 4px 6px;
+        margin: 2px 1%;
+        white-space: nowrap;
       }
 
-      .controls button {
-        flex: 1 1 40%;
-        max-width: 45%;
-        margin: 4px 2%;
-        font-size: 0.9rem;
-      }
         }
 
   </style>
@@ -251,7 +256,6 @@
     <div class="page"><img src="images/page_6.png" alt="Page 6"></div>
     <div class="page"><img src="images/page_7.png" alt="Page 7"></div>
     <div class="page"><img src="images/page_8.png" alt="Page 8"></div>
-    <div class="page"><img src="images/page_9.jpg" alt="Page 9"></div>
     <div class="page"><img src="images/page_10.png" alt="Page 10"></div>
     <div class="page"><img src="images/page_11.png" alt="Page 11"></div>
     <div class="page" style="position: relative;">
